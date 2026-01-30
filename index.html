@@ -121,22 +121,20 @@
     <h1>Até o Infinito <span class="heart">❤️</span></h1>
     <p class="subtitle">e mais um pouquinho além...</p>
 
-    <!-- CONTADOR AO VIVO -->
     <div class="timer-box">
-      <div class="timer-title">Juntos há exatamente:</div>
-      <div id="timer">Carregando nosso tempo de amor... ❤️</div>
+      <div class="timer-title">Eu te amo há exatamente:</div>
+      <div id="timer">Carregando... ❤️</div>
     </div>
 
     <img src="https://via.placeholder.com/600x800.png?text=Foto+de+Vocês+Aqui+❤️" alt="Nós dois" class="photo" id="couple-photo">
 
     <div class="letter">
       <p>Minha vida,</p>
-      <p>Há mais de <strong>3 anos</strong> você entrou na minha vida e transformou tudo em magia.</p>
-      <p>Hoje, dia 30 de janeiro de 2026, celebramos esses anos de amor, cumplicidade, risadas até doer a barriga, viagens, brigas bobas que duram 5 minutos e reconciliações que duram pra sempre.</p>
-      <p>Você é minha casa, meu porto seguro, meu melhor amigo, minha maior aventura e o amor da minha vida inteira.</p>
-      <p>Eu não quero você só por mais anos.<br>Eu quero você pra sempre. Até o infinito. E quando chegar lá, a gente inventa mais um pouquinho.</p>
-      <p>Obrigado por cada dia desse tempo incrível (e contando) de felicidade absoluta.</p>
-      <p>Te amo com todo o meu coração, hoje e em todas as vidas que ainda vamos viver juntos.</p>
+      <p>Desde 17 de julho de 2022 você está comigo, transformando cada dia em algo especial.</p>
+      <p>Hoje celebramos mais de 3 anos de amor verdadeiro, cumplicidade, risadas, viagens, momentos difíceis que nos fortaleceram e uma conexão que só cresce.</p>
+      <p>Você é meu tudo: minha paz, meu sorriso, meu melhor amigo e o amor da minha vida.</p>
+      <p>Quero você não só por mais anos, mas pra sempre. Até o infinito e além!</p>
+      <p>Obrigado por cada segundo ao seu lado. Te amo demais.</p>
       <br>
       <p style="font-size:1.4em; color:#ff6b9d;">
         Pra sempre seu,<br>
@@ -150,9 +148,9 @@
   </div>
 
   <script>
-    // Estrelinhas caindo
+    // Estrelas caindo
     const starsContainer = document.getElementById('stars');
-    for(let i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
       star.style.width = Math.random() * 3 + 'px';
@@ -165,26 +163,21 @@
       starsContainer.appendChild(star);
     }
 
-    // Contador ao vivo preciso
-    const startDate = new Date('2022-07-17T00:00:00'); // Ajuste a hora se souber (ex: T16:15:17 para bater com o antigo)
+    // Contador corrigido - início: 17/07/2022
+    const startDate = new Date(2022, 6, 17, 0, 0, 0); // mês 6 = julho (0-based)
 
     function updateTimer() {
       const now = new Date();
+
       let years = now.getFullYear() - startDate.getFullYear();
       let months = now.getMonth() - startDate.getMonth();
       let days = now.getDate() - startDate.getDate();
 
-      // Ajuste se a hora atual for antes da hora de início (não completou o dia ainda)
-      const nowTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-      const startTime = startDate.getHours() * 3600 + startDate.getMinutes() * 60 + startDate.getSeconds();
-      if (nowTime < startTime) {
-        days--;
-      }
-
       if (days < 0) {
         months--;
-        const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        days += lastDayOfPrevMonth;
+        // Dias do mês anterior
+        const tempDate = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += tempDate.getDate();
       }
 
       if (months < 0) {
@@ -192,13 +185,13 @@
         months += 12;
       }
 
-      // Horas, minutos, segundos do dia atual
+      // Horas, min, seg do dia (total desde início)
       const diffMs = now - startDate;
-      const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
-      const seconds = Math.floor((diffMs / 1000) % 60);
+      const hours = Math.floor(diffMs / 3600000) % 24;
+      const minutes = Math.floor(diffMs / 60000) % 60;
+      const seconds = Math.floor(diffMs / 1000) % 60;
 
-      const pad = (num) => String(num).padStart(2, '0');
+      const pad = (n) => n.toString().padStart(2, '0');
 
       document.getElementById('timer').innerHTML = 
         `${years} anos, ${months} meses, ${days} dias, ${pad(hours)}h ${pad(minutes)}min ${pad(seconds)}s`;
