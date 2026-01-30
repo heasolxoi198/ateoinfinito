@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Até o Infinito ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@300;400&display=swap');
+    
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0033, #000000);
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .container {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 800px;
+      z-index: 10;
+    }
+    
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4.5em;
+      margin: 0;
+      color: #ff6b9d;
+      text-shadow: 0 0 20px rgba(255, 107, 157, 0.8);
+    }
+    
+    .subtitle {
+      font-size: 1.4em;
+      margin: 10px 0 40px;
+      color: #ffb3d1;
+    }
+    
+    .letter {
+      font-size: 1.25em;
+      line-height: 1.8;
+      background: rgba(255,255,255,0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      margin: 30px auto;
+      max-width: 700px;
+    }
+    
+    .heart {
+      color: #ff6b9d;
+      font-size: 1.5em;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    .photo {
+      margin: 40px 0;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255, 107, 157, 0.6);
+      max-width: 90%;
+    }
+    
+    .stars {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+    
+    @keyframes fall {
+      to { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+    <h1>Até o Infinito <span class="heart">❤️</span></h1>
+    <p class="subtitle">e mais um pouquinho além...</p>
+    
+    <img src="https://via.placeholder.com/600x800.png?text=Foto+de+Vocês+Aqui+❤️" alt="Nós dois" class="photo" id="couple-photo">
+
+    <div class="letter">
+      <p>Minha vida,</p>
+      <p>Há exatos <strong>5 anos</strong> você entrou na minha vida e transformou tudo em magia.</p>
+      <p>Hoje, dia 30 de janeiro de 2026, celebramos meio década de amor, cumplicidade, risadas até doer a barriga, viagens, brigas bobas que duram 5 minutos e reconciliações que duram pra sempre.</p>
+      <p>Você é minha casa, meu porto seguro, meu melhor amigo, minha maior aventura e o amor da minha vida inteira.</p>
+      <p>Eu não quero você só por mais 5 anos.<br>Eu quero você pra sempre. Até o infinito. E quando chegar lá, a gente inventa mais um pouquinho.</p>
+      <p>Obrigado por cada dia desses 1825 dias (e contando) de felicidade absoluta.</p>
+      <p>Te amo com todo o meu coração, hoje e em todas as vidas que ainda vamos viver juntos.</p>
+      <br>
+      <p style="font-size:1.4em; color:#ff6b9d;">
+        Pra sempre seu,<br>
+        João Ugulino ❤️
+      </p>
+    </div>
+    
+    <p style="margin-top:50px; font-size:1.1em; color:#ccc;">
+      Desde 30/01/2021 • 5 anos juntos • ∞ pela frente
+    </p>
+  </div>
+
+  <script>
+    // Estrelinhas caindo
+    const starsContainer = document.getElementById('stars');
+    for(let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = Math.random() * 3 + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * -100 + 'px';
+      star.style.animationDuration = Math.random() * 8 + 5 + 's';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      star.style.opacity = Math.random() * 0.8 + 0.2;
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>
