@@ -166,13 +166,20 @@
     }
 
     // Contador ao vivo preciso
-    const startDate = new Date('2022-07-17T00:00:00'); // Ajuste a hora se souber (ex: T18:00:00)
+    const startDate = new Date('2022-07-17T00:00:00'); // Ajuste a hora se souber (ex: T16:15:17 para bater com o antigo)
 
     function updateTimer() {
       const now = new Date();
       let years = now.getFullYear() - startDate.getFullYear();
       let months = now.getMonth() - startDate.getMonth();
       let days = now.getDate() - startDate.getDate();
+
+      // Ajuste se a hora atual for antes da hora de início (não completou o dia ainda)
+      const nowTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+      const startTime = startDate.getHours() * 3600 + startDate.getMinutes() * 60 + startDate.getSeconds();
+      if (nowTime < startTime) {
+        days--;
+      }
 
       if (days < 0) {
         months--;
@@ -185,17 +192,16 @@
         months += 12;
       }
 
-      // Horas, minutos, segundos (total desde o início)
+      // Horas, minutos, segundos do dia atual
       const diffMs = now - startDate;
-      const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
-      const minutes = Math.floor(diffMs / (1000 * 60)) % 60;
-      const seconds = Math.floor(diffMs / 1000) % 60;
+      const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+      const seconds = Math.floor((diffMs / 1000) % 60);
 
       const pad = (num) => String(num).padStart(2, '0');
 
       document.getElementById('timer').innerHTML = 
-        `${years} anos, ${months} meses, ${days} dias<br>` +
-        `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        `${years} anos, ${months} meses, ${days} dias, ${pad(hours)}h ${pad(minutes)}min ${pad(seconds)}s`;
     }
 
     updateTimer();
