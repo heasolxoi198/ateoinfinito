@@ -131,11 +131,11 @@
 
     <div class="letter">
       <p>Minha vida,</p>
-      <p>Há exatos <strong>5 anos</strong> você entrou na minha vida e transformou tudo em magia.</p>
-      <p>Hoje, dia 30 de janeiro de 2026, celebramos meio década de amor, cumplicidade, risadas até doer a barriga, viagens, brigas bobas que duram 5 minutos e reconciliações que duram pra sempre.</p>
+      <p>Há mais de <strong>3 anos</strong> você entrou na minha vida e transformou tudo em magia.</p>
+      <p>Hoje, dia 30 de janeiro de 2026, celebramos esses anos de amor, cumplicidade, risadas até doer a barriga, viagens, brigas bobas que duram 5 minutos e reconciliações que duram pra sempre.</p>
       <p>Você é minha casa, meu porto seguro, meu melhor amigo, minha maior aventura e o amor da minha vida inteira.</p>
-      <p>Eu não quero você só por mais 5 anos.<br>Eu quero você pra sempre. Até o infinito. E quando chegar lá, a gente inventa mais um pouquinho.</p>
-      <p>Obrigado por cada dia desses 1825 dias (e contando) de felicidade absoluta.</p>
+      <p>Eu não quero você só por mais anos.<br>Eu quero você pra sempre. Até o infinito. E quando chegar lá, a gente inventa mais um pouquinho.</p>
+      <p>Obrigado por cada dia desse tempo incrível (e contando) de felicidade absoluta.</p>
       <p>Te amo com todo o meu coração, hoje e em todas as vidas que ainda vamos viver juntos.</p>
       <br>
       <p style="font-size:1.4em; color:#ff6b9d;">
@@ -145,7 +145,7 @@
     </div>
     
     <p style="margin-top:50px; font-size:1.1em; color:#ccc;">
-      Desde 30/01/2021 • ∞ pela frente
+      Desde 17/07/2022 • ∞ pela frente
     </p>
   </div>
 
@@ -165,35 +165,31 @@
       starsContainer.appendChild(star);
     }
 
-    // Contador ao vivo
-    const startDate = new Date('2021-01-30T00:00:00'); // mude a hora se souber (ex: T19:30:00)
+    // Contador ao vivo preciso
+    const startDate = new Date('2022-07-17T00:00:00'); // Ajuste a hora se souber (ex: T18:00:00)
 
     function updateTimer() {
       const now = new Date();
-      let diffMs = now - startDate;
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
 
-      if (diffMs < 0) {
-        document.getElementById('timer').innerHTML = 'Ainda não começamos... mas vamos começar! ❤️';
-        return;
+      if (days < 0) {
+        months--;
+        const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days += lastDayOfPrevMonth;
       }
 
-      // Cálculos aproximados
-      const years   = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
-      diffMs -= years * (1000 * 60 * 60 * 24 * 365.25);
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
 
-      const months  = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 30.4375));
-      diffMs -= months * (1000 * 60 * 60 * 24 * 30.4375);
-
-      const days    = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-      diffMs -= days * (1000 * 60 * 60 * 24);
-
-      const hours   = Math.floor(diffMs / (1000 * 60 * 60));
-      diffMs -= hours * (1000 * 60 * 60);
-
-      const minutes = Math.floor(diffMs / (1000 * 60));
-      diffMs -= minutes * (1000 * 60);
-
-      const seconds = Math.floor(diffMs / 1000);
+      // Horas, minutos, segundos (total desde o início)
+      const diffMs = now - startDate;
+      const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
+      const minutes = Math.floor(diffMs / (1000 * 60)) % 60;
+      const seconds = Math.floor(diffMs / 1000) % 60;
 
       const pad = (num) => String(num).padStart(2, '0');
 
