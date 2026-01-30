@@ -37,8 +37,31 @@
     
     .subtitle {
       font-size: 1.4em;
-      margin: 10px 0 40px;
+      margin: 10px 0 20px;
       color: #ffb3d1;
+    }
+    
+    .timer-box {
+      margin: 30px 0 50px;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 16px;
+      border: 1px solid #ff6b9d;
+      box-shadow: 0 0 30px rgba(255,107,157,0.3);
+    }
+    
+    .timer-title {
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      color: #ffb3d1;
+    }
+    
+    #timer {
+      font-family: 'Courier New', monospace;
+      font-size: 2.2em;
+      color: #ff6b9d;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px #ff6b9d;
     }
     
     .letter {
@@ -97,7 +120,13 @@
   <div class="container">
     <h1>Até o Infinito <span class="heart">❤️</span></h1>
     <p class="subtitle">e mais um pouquinho além...</p>
-    
+
+    <!-- CONTADOR AO VIVO -->
+    <div class="timer-box">
+      <div class="timer-title">Juntos há exatamente:</div>
+      <div id="timer">Carregando nosso tempo de amor... ❤️</div>
+    </div>
+
     <img src="https://via.placeholder.com/600x800.png?text=Foto+de+Vocês+Aqui+❤️" alt="Nós dois" class="photo" id="couple-photo">
 
     <div class="letter">
@@ -116,7 +145,7 @@
     </div>
     
     <p style="margin-top:50px; font-size:1.1em; color:#ccc;">
-      Desde 30/01/2021 • 5 anos juntos • ∞ pela frente
+      Desde 30/01/2021 • ∞ pela frente
     </p>
   </div>
 
@@ -135,6 +164,46 @@
       star.style.opacity = Math.random() * 0.8 + 0.2;
       starsContainer.appendChild(star);
     }
+
+    // Contador ao vivo
+    const startDate = new Date('2021-01-30T00:00:00'); // mude a hora se souber (ex: T19:30:00)
+
+    function updateTimer() {
+      const now = new Date();
+      let diffMs = now - startDate;
+
+      if (diffMs < 0) {
+        document.getElementById('timer').innerHTML = 'Ainda não começamos... mas vamos começar! ❤️';
+        return;
+      }
+
+      // Cálculos aproximados
+      const years   = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+      diffMs -= years * (1000 * 60 * 60 * 24 * 365.25);
+
+      const months  = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 30.4375));
+      diffMs -= months * (1000 * 60 * 60 * 24 * 30.4375);
+
+      const days    = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      diffMs -= days * (1000 * 60 * 60 * 24);
+
+      const hours   = Math.floor(diffMs / (1000 * 60 * 60));
+      diffMs -= hours * (1000 * 60 * 60);
+
+      const minutes = Math.floor(diffMs / (1000 * 60));
+      diffMs -= minutes * (1000 * 60);
+
+      const seconds = Math.floor(diffMs / 1000);
+
+      const pad = (num) => String(num).padStart(2, '0');
+
+      document.getElementById('timer').innerHTML = 
+        `${years} anos, ${months} meses, ${days} dias<br>` +
+        `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
   </script>
 </body>
 </html>
