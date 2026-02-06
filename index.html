@@ -23,7 +23,7 @@
     .container {
       text-align: center;
       padding: 40px 20px;
-      max-width: 800px;
+      max-width: 900px;
       z-index: 10;
     }
    
@@ -32,7 +32,7 @@
       font-style: italic;
       font-weight: 700;
       font-size: 4.8em;
-      margin: 0;
+      margin: 0 0 10px;
       color: #ff6b9d;
       text-shadow: 0 0 25px rgba(255, 107, 157, 0.9);
       letter-spacing: 2px;
@@ -40,35 +40,12 @@
    
     .subtitle {
       font-size: 1.4em;
-      margin: 10px 0 20px;
+      margin: 0 0 30px;
       color: #ffb3d1;
-    }
-   
-    .timer-box {
-      margin: 30px 0 40px;
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 16px;
-      border: 1px solid #ff6b9d;
-      box-shadow: 0 0 30px rgba(255,107,157,0.3);
-    }
-   
-    .timer-title {
-      font-size: 1.4em;
-      margin-bottom: 15px;
-      color: #ffb3d1;
-    }
-   
-    #timer {
-      font-family: 'Courier New', monospace;
-      font-size: 2.2em;
-      color: #ff6b9d;
-      letter-spacing: 3px;
-      text-shadow: 0 0 15px #ff6b9d;
     }
    
     .music-player {
-      margin: 40px auto;
+      margin: 20px auto 50px;
       max-width: 500px;
     }
    
@@ -76,6 +53,57 @@
       font-size: 1.4em;
       color: #ffb3d1;
       margin-bottom: 15px;
+    }
+   
+    .photos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 40px 0 60px;
+    }
+   
+    .photo {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 
+        0 0 15px rgba(255, 107, 157, 0.5),
+        0 0 30px rgba(255, 107, 157, 0.3),
+        inset 0 0 10px rgba(255, 107, 157, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+   
+    .photo:hover {
+      transform: scale(1.05);
+      box-shadow: 
+        0 0 25px rgba(255, 107, 157, 0.8),
+        0 0 50px rgba(255, 107, 157, 0.5);
+    }
+   
+    .timer-box {
+      margin: 50px auto 60px;
+      padding: 25px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
+      border: 1px solid #ff6b9d;
+      box-shadow: 0 0 35px rgba(255,107,157,0.4);
+      max-width: 600px;
+    }
+   
+    .timer-title {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #ffb3d1;
+    }
+   
+    #timer {
+      font-family: 'Courier New', monospace;
+      font-size: 2.4em;
+      color: #ff6b9d;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px #ff6b9d;
     }
    
     .letter {
@@ -99,13 +127,6 @@
       0% { transform: scale(1); }
       50% { transform: scale(1.2); }
       100% { transform: scale(1); }
-    }
-   
-    .photo {
-      margin: 40px 0;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(255, 107, 157, 0.6);
-      max-width: 90%;
     }
    
     .stars {
@@ -135,12 +156,7 @@
     <h1>Até o Infinito</h1>
     <p class="subtitle">e mais um pouquinho além...</p>
 
-    <div class="timer-box">
-      <div class="timer-title">Eu te amo há exatamente:</div>
-      <div id="timer">Carregando... ❤️</div>
-    </div>
-
-    <!-- Player Spotify - Te Quiero Tanto -->
+    <!-- Player Spotify no topo -->
     <div class="music-player">
       <p class="music-title">Nossa música ❤️</p>
       <iframe style="border-radius:12px" 
@@ -153,7 +169,18 @@
               loading="lazy"></iframe>
     </div>
 
-    <img src="https://via.placeholder.com/600x800.png?text=Foto+de+Vocês+Aqui+❤️" alt="Nós dois" class="photo" id="couple-photo">
+    <!-- 3 fotos lado a lado -->
+    <div class="photos-container">
+      <img src="https://via.placeholder.com/300x400.png?text=Foto+1" alt="Nós dois - Foto 1" class="photo">
+      <img src="https://via.placeholder.com/300x400.png?text=Foto+2" alt="Nós dois - Foto 2" class="photo">
+      <img src="https://via.placeholder.com/300x400.png?text=Foto+3" alt="Nós dois - Foto 3" class="photo">
+    </div>
+
+    <!-- Contador abaixo das fotos -->
+    <div class="timer-box">
+      <div class="timer-title">Eu te amo há exatamente:</div>
+      <div id="timer">Carregando... ❤️</div>
+    </div>
 
     <div class="letter">
       <p>Minha vida,</p>
