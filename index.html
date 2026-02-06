@@ -5,28 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Até o Infinito</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@300;400&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
-   
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Roboto:wght@300;400&display=swap');
+
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       min-height: 100vh;
       background: linear-gradient(135deg, #1a0033, #000000);
       color: #fff;
       font-family: 'Roboto', sans-serif;
       overflow-x: hidden;
+    }
+
+    /* Tela de entrada */
+    #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2a004d, #000);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease;
     }
-   
+
+    #intro-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-heart {
+      font-size: 8em;
+      color: #ff6b9d;
+      animation: pulse 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    .intro-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 3.5em;
+      color: #ffb3d1;
+      text-shadow: 0 0 20px rgba(255, 107, 157, 0.7);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .intro-button {
+      padding: 18px 50px;
+      font-size: 1.6em;
+      background: #ff6b9d;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .intro-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px rgba(255, 107, 157, 0.7);
+    }
+
+    /* Conteúdo principal */
+    #main-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    #main-content.visible {
+      display: block;
+      opacity: 1;
+    }
+
     .container {
       text-align: center;
       padding: 40px 20px;
       max-width: 1100px;
-      z-index: 10;
+      margin: 0 auto;
     }
-   
+
     h1 {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -37,24 +105,24 @@
       text-shadow: 0 0 25px rgba(255, 107, 157, 0.9);
       letter-spacing: 2px;
     }
-   
+
     .subtitle {
       font-size: 1.4em;
       margin: 0 0 30px;
       color: #ffb3d1;
     }
-   
+
     .music-player {
       margin: 20px auto 50px;
       max-width: 500px;
     }
-   
+
     .music-title {
       font-size: 1.4em;
       color: #ffb3d1;
       margin-bottom: 15px;
     }
-   
+
     .photos-container {
       display: flex;
       flex-wrap: wrap;
@@ -62,9 +130,9 @@
       gap: 30px;
       margin: 40px 0 60px;
     }
-   
+
     .photo {
-      flex: 1 1 300px; /* permite crescer/encolher proporcionalmente */
+      flex: 1 1 300px;
       max-width: 360px;
       height: 480px;
       object-fit: cover;
@@ -75,14 +143,14 @@
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       border: 2px solid rgba(255, 107, 157, 0.3);
     }
-   
+
     .photo:hover {
       transform: scale(1.08);
       box-shadow: 
         0 0 35px rgba(255, 107, 157, 0.7),
         inset 0 0 20px rgba(255, 107, 157, 0.3);
     }
-   
+
     .timer-box {
       margin: 50px auto 60px;
       padding: 25px;
@@ -92,13 +160,13 @@
       box-shadow: 0 0 35px rgba(255,107,157,0.4);
       max-width: 600px;
     }
-   
+
     .timer-title {
       font-size: 1.5em;
       margin-bottom: 20px;
       color: #ffb3d1;
     }
-   
+
     #timer {
       font-family: 'Courier New', monospace;
       font-size: 2.4em;
@@ -106,7 +174,7 @@
       letter-spacing: 4px;
       text-shadow: 0 0 20px #ff6b9d;
     }
-   
+
     .letter {
       font-size: 1.25em;
       line-height: 1.8;
@@ -117,92 +185,100 @@
       margin: 30px auto;
       max-width: 700px;
     }
-   
-    .heart {
-      color: #ff6b9d;
-      font-size: 1.5em;
-      animation: pulse 1.5s infinite;
-    }
-   
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-   
+
     .stars {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
       z-index: 1;
     }
-   
+
     .star {
       position: absolute;
       background: white;
       border-radius: 50%;
       animation: fall linear infinite;
     }
-   
+
     @keyframes fall {
       to { transform: translateY(100vh); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <div class="stars" id="stars"></div>
+  <!-- Tela de entrada -->
+  <div id="intro-screen">
+    <div class="intro-heart" style="animation: pulse 2s infinite;">❤️</div>
+    <div class="intro-text">Te amo demais...</div>
+    <button class="intro-button" onclick="enterSite()">Abrir nossa surpresa</button>
+  </div>
 
-  <div class="container">
-    <h1>Até o Infinito</h1>
-    <p class="subtitle">e mais um pouquinho além...</p>
+  <!-- Conteúdo principal (escondido no início) -->
+  <div id="main-content">
+    <div class="stars" id="stars"></div>
 
-    <!-- Player Spotify no topo -->
-    <div class="music-player">
-      <p class="music-title">Nossa música ❤️</p>
-      <iframe style="border-radius:12px" 
-              src="https://open.spotify.com/embed/track/04aBuWoZeHYJeDDTWYSgso?utm_source=generator" 
-              width="100%" 
-              height="152" 
-              frameBorder="0" 
-              allowfullscreen="" 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-              loading="lazy"></iframe>
-    </div>
+    <div class="container">
+      <h1>Até o Infinito</h1>
+      <p class="subtitle">e mais um pouquinho além...</p>
 
-    <!-- 3 fotos lado a lado -->
-    <div class="photos-container">
-      <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(1).jpeg" alt="Nós dois - Foto 1" class="photo">
-      <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(2).jpeg" alt="Nós dois - Foto 2" class="photo">
-      <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07.jpeg" alt="Nós dois - Foto 3" class="photo">
-    </div>
+      <!-- Player Spotify -->
+      <div class="music-player">
+        <p class="music-title">Nossa música ❤️</p>
+        <iframe style="border-radius:12px" 
+                src="https://open.spotify.com/embed/track/04aBuWoZeHYJeDDTWYSgso?utm_source=generator" 
+                width="100%" height="152" frameBorder="0" 
+                allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
 
-    <!-- Contador abaixo das fotos -->
-    <div class="timer-box">
-      <div class="timer-title">Eu te amo há exatamente:</div>
-      <div id="timer">Carregando... ❤️</div>
-    </div>
+      <!-- Fotos -->
+      <div class="photos-container">
+        <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(1).jpeg" alt="Nós dois - Foto 1" class="photo">
+        <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(2).jpeg" alt="Nós dois - Foto 2" class="photo">
+        <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07.jpeg" alt="Nós dois - Foto 3" class="photo">
+      </div>
 
-    <div class="letter">
-      <p>Minha vida,</p>
-      <p>Desde 17 de julho de 2022 você está comigo, transformando cada dia em algo especial.</p>
-      <p>Hoje celebramos mais de 3 anos de amor verdadeiro, cumplicidade, risadas, viagens, momentos difíceis que nos fortaleceram e uma conexão que só cresce.</p>
-      <p>Você é meu tudo: minha paz, meu sorriso, meu melhor amigo e o amor da minha vida.</p>
-      <p>Quero você não só por mais anos, mas pra sempre. Até o infinito e além!</p>
-      <p>Obrigado por cada segundo ao seu lado. Te amo demais.</p>
-      <br>
-      <p style="font-size:1.4em; color:#ff6b9d;">
-        Pra sempre seu,<br>
-        João Ugulino ❤️
+      <!-- Contador -->
+      <div class="timer-box">
+        <div class="timer-title">Eu te amo há exatamente:</div>
+        <div id="timer">Carregando... ❤️</div>
+      </div>
+
+      <div class="letter">
+        <p>Minha vida,</p>
+        <p>Desde 17 de julho de 2022 você está comigo, transformando cada dia em algo especial.</p>
+        <p>Hoje celebramos mais de 3 anos de amor verdadeiro, cumplicidade, risadas, viagens, momentos difíceis que nos fortaleceram e uma conexão que só cresce.</p>
+        <p>Você é meu tudo: minha paz, meu sorriso, meu melhor amigo e o amor da minha vida.</p>
+        <p>Quero você não só por mais anos, mas pra sempre. Até o infinito e além!</p>
+        <p>Obrigado por cada segundo ao seu lado. Te amo demais.</p>
+        <br>
+        <p style="font-size:1.4em; color:#ff6b9d;">
+          Pra sempre seu,<br>
+          João Ugulino ❤️
+        </p>
+      </div>
+     
+      <p style="margin-top:50px; font-size:1.1em; color:#ccc;">
+        Desde 17/07/2022 • ∞ pela frente
       </p>
     </div>
-   
-    <p style="margin-top:50px; font-size:1.1em; color:#ccc;">
-      Desde 17/07/2022 • ∞ pela frente
-    </p>
   </div>
 
   <script>
+    // Função para entrar no site
+    function enterSite() {
+      document.getElementById('intro-screen').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('main-content').classList.add('visible');
+      }, 1000); // tempo da transição
+    }
+
     // Estrelas caindo
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 100; i++) {
