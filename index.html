@@ -23,7 +23,7 @@
     .container {
       text-align: center;
       padding: 40px 20px;
-      max-width: 900px;
+      max-width: 1200px; /* aumentei um pouco pra caber melhor as 3 fotos */
       z-index: 10;
     }
    
@@ -57,14 +57,16 @@
    
     .photos-container {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap; /* força ficar em linha única */
       justify-content: center;
       gap: 25px;
       margin: 40px 0 60px;
+      overflow-x: auto; /* permite scroll horizontal em telas pequenas */
+      padding-bottom: 10px; /* espaço pra barra de scroll não cortar */
     }
    
     .photo {
-      width: 300px;
+      flex: 0 0 300px; /* largura fixa, não cresce nem encolhe */
       height: 400px;
       object-fit: cover;
       border-radius: 20px;
@@ -169,11 +171,11 @@
               loading="lazy"></iframe>
     </div>
 
-    <!-- 3 fotos lado a lado -->
+    <!-- 3 fotos lado a lado (forçado) -->
     <div class="photos-container">
-      <img src="https://github.com/heasolxoi198/ateoinfinito/blob/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(1).jpeg?raw=true" alt="Nós dois - Foto 1" class="photo">
-      <img src="https://github.com/heasolxoi198/ateoinfinito/blob/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(2).jpeg?raw=true" alt="Nós dois - Foto 2" class="photo">
-      <img src="https://github.com/heasolxoi198/ateoinfinito/blob/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07.jpeg?raw=true" alt="Nós dois - Foto 3" class="photo">
+      <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/foto1.jpg" alt="Nós dois - Foto 1" class="photo">
+      <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/foto2.jpg" alt="Nós dois - Foto 2" class="photo">
+      <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/foto3.jpg" alt="Nós dois - Foto 3" class="photo">
     </div>
 
     <!-- Contador abaixo das fotos -->
