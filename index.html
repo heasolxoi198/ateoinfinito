@@ -7,7 +7,11 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Roboto:wght@300;400;500&display=swap');
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       min-height: 100vh;
@@ -27,7 +31,14 @@
       z-index: 1;
     }
 
-    .stars { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 2; }
+    /* Estrelas caindo */
+    .stars {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
     .star {
       position: absolute;
       background: white;
@@ -35,127 +46,251 @@
       animation: fall linear infinite;
     }
 
-    @keyframes fall { to { transform: translateY(100vh); } }
+    @keyframes fall {
+      to { transform: translateY(100vh); }
+    }
 
-    /* Intro */
+    /* Tela de entrada */
     #intro-screen {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: linear-gradient(135deg, #3a0052, #000);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      z-index: 10000; transition: opacity 1.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 1.2s ease;
     }
-    #intro-screen.hidden { opacity: 0; pointer-events: none; }
 
-    .intro-heart { font-size: 9em; color: #ff6b9d; animation: pulse 2.2s infinite; filter: drop-shadow(0 0 30px #ff6b9d); }
-    .intro-text {
-      font-family: 'Playfair Display', serif; font-style: italic; font-size: 4.2em;
-      background: linear-gradient(90deg, #ff6b9d, #ffb3d1, #ff6b9d);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite; margin: 30px 0 50px;
+    #intro-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
-    @keyframes shine { 0% { background-position: 0%; } 100% { background-position: 200%; } }
+
+    .intro-heart {
+      font-size: 9em;
+      color: #ff6b9d;
+      animation: pulse 2.2s infinite;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 30px #ff6b9d);
+    }
+
+    .intro-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 4.2em;
+      background: linear-gradient(90deg, #ff6b9d, #ffb3d1, #ff6b9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200%;
+      animation: shine 4s linear infinite;
+      text-shadow: 0 0 30px rgba(255,107,157,0.6);
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    @keyframes shine {
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
+    }
 
     .intro-button {
-      padding: 20px 60px; font-size: 1.7em; background: linear-gradient(45deg, #ff6b9d, #ff8ab3);
-      color: white; border: none; border-radius: 50px; cursor: pointer;
+      padding: 20px 60px;
+      font-size: 1.7em;
+      background: linear-gradient(45deg, #ff6b9d, #ff8ab3);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
       box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+      transition: all 0.4s ease;
     }
-    .intro-button:hover { transform: scale(1.08); box-shadow: 0 20px 50px rgba(255, 107, 157, 0.8); }
 
-    /* Main */
-    #main-content { display: none; opacity: 0; transition: opacity 1.8s ease; position: relative; z-index: 3; }
-    #main-content.visible { display: block; opacity: 1; }
+    .intro-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 20px 50px rgba(255, 107, 157, 0.8);
+    }
 
-    .container { text-align: center; padding: 40px 20px; max-width: 1100px; margin: 0 auto; }
+    /* Conteúdo principal */
+    #main-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 1.8s ease;
+      position: relative;
+      z-index: 3;
+    }
+
+    #main-content.visible {
+      display: block;
+      opacity: 1;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
     h1 {
-      font-family: 'Playfair Display', serif; font-style: italic; font-size: 5.2em;
-      color: #ff6b9d; text-shadow: 0 0 40px rgba(255, 107, 157, 0.9); margin: 20px 0 10px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 5.2em;
+      margin: 20px 0 10px;
+      color: #ff6b9d;
+      text-shadow: 0 0 40px rgba(255, 107, 157, 0.9);
+      letter-spacing: 3px;
     }
-    .subtitle { font-size: 1.6em; color: #ffb3d1; margin-bottom: 40px; }
+
+    .subtitle {
+      font-size: 1.6em;
+      margin-bottom: 40px;
+      color: #ffb3d1;
+      font-weight: 300;
+    }
 
     /* Música */
-    .music-control {
-      position: fixed; top: 20px; right: 20px; z-index: 100;
-      background: rgba(0,0,0,0.6); padding: 12px 18px; border-radius: 50px;
-      border: 1px solid #ff6b9d; cursor: pointer; font-size: 1.4em;
+    .music-player {
+      margin: 30px auto 60px;
+      max-width: 520px;
     }
 
-    /* Galeria */
+    .music-title {
+      font-size: 1.5em;
+      color: #ffb3d1;
+      margin-bottom: 12px;
+    }
+
+    /* Fotos */
     .photos-container {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
       margin: 50px 0 70px;
     }
+
     .photo {
-      flex: 1 1 320px; max-width: 380px; height: 500px; object-fit: cover;
-      border-radius: 28px; cursor: pointer;
-      box-shadow: 0 0 25px rgba(255,107,157,0.5);
-      transition: all 0.5s ease;
+      flex: 1 1 320px;
+      max-width: 380px;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 28px;
+      box-shadow: 0 0 25px rgba(255,107,157,0.5),
+                  inset 0 0 20px rgba(255,107,157,0.3);
       border: 3px solid rgba(255,107,157,0.4);
+      transition: all 0.5s ease;
+      cursor: pointer;
     }
-    .photo:hover { transform: scale(1.07) rotate(2deg); }
+
+    .photo:hover {
+      transform: scale(1.07) rotate(2deg);
+      box-shadow: 0 0 45px rgba(255,107,157,0.8);
+    }
 
     /* Timer */
     .timer-box {
-      margin: 60px auto; padding: 35px 40px; max-width: 620px;
-      background: rgba(0,0,0,0.45); border-radius: 24px;
-      border: 2px solid #ff6b9d; box-shadow: 0 0 40px rgba(255,107,157,0.5);
+      margin: 60px auto;
+      padding: 35px 40px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 24px;
+      border: 2px solid #ff6b9d;
+      box-shadow: 0 0 40px rgba(255,107,157,0.5);
+      max-width: 620px;
     }
-    #timer { font-family: 'Playfair Display', serif; font-size: 2.9em; color: #ff6b9d; }
 
-    /* Carta com digitação */
+    .timer-title {
+      font-size: 1.6em;
+      margin-bottom: 18px;
+      color: #ffb3d1;
+    }
+
+    #timer {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.9em;
+      color: #ff6b9d;
+      letter-spacing: 5px;
+      text-shadow: 0 0 25px #ff6b9d;
+    }
+
+    /* Carta */
     .letter {
-      font-size: 1.28em; line-height: 1.9; max-width: 720px; margin: 60px auto;
-      background: rgba(255,255,255,0.08); padding: 50px 45px; border-radius: 24px;
-      border: 1px solid rgba(255,107,157,0.3); backdrop-filter: blur(12px);
-      min-height: 300px;
+      font-size: 1.28em;
+      line-height: 1.9;
+      background: rgba(255,255,255,0.08);
+      padding: 50px 45px;
+      border-radius: 24px;
+      backdrop-filter: blur(12px);
+      margin: 60px auto;
+      max-width: 720px;
+      border: 1px solid rgba(255,107,157,0.3);
     }
-    .signature { font-size: 1.5em; color: #ff6b9d; margin-top: 35px; }
 
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-    @keyframes floatHeart { 0% { transform: translateY(100vh) rotate(0deg); } 100% { transform: translateY(-100px) rotate(25deg); } }
+    .signature {
+      font-size: 1.5em;
+      color: #ff6b9d;
+      margin-top: 30px;
+    }
+
+    /* Corações flutuantes */
+    .floating-heart {
+      position: absolute;
+      font-size: 1.8em;
+      color: #ff6b9d;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 4;
+      animation: floatHeart 12s linear infinite;
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(25deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
   </style>
-
-  <!-- FancyBox para Lightbox -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.min.css"/>
 </head>
 <body>
 
-  <!-- Intro -->
+  <!-- Tela de entrada -->
   <div id="intro-screen">
     <div class="intro-heart">❤️</div>
     <div class="intro-text">Te amo demais...</div>
     <button class="intro-button" onclick="enterSite()">Abrir nossa surpresa</button>
   </div>
 
-  <!-- Main Content -->
+  <!-- Conteúdo principal -->
   <div id="main-content">
     <div class="stars" id="stars"></div>
-
-    <!-- Controle de Música -->
-    <div class="music-control" id="musicControl" onclick="toggleMusic()">♪</div>
 
     <div class="container">
       <h1>Até o Infinito</h1>
       <p class="subtitle">e mais um pouquinho além...</p>
 
-      <!-- Spotify -->
+      <!-- Player Spotify -->
       <div class="music-player">
         <p class="music-title">Nossa música ❤️</p>
-        <iframe id="spotify" style="border-radius:12px" 
+        <iframe style="border-radius:12px" 
                 src="https://open.spotify.com/embed/track/04aBuWoZeHYJeDDTWYSgso?utm_source=generator"
-                width="100%" height="152" frameBorder="0" allow="autoplay; encrypted-media">
+                width="100%" height="152" frameBorder="0"
+                allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
         </iframe>
       </div>
 
-      <!-- Galeria -->
+      <!-- Galeria de fotos -->
       <div class="photos-container">
         <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(1).jpeg" 
-             alt="Nós" class="photo" data-fancybox="gallery">
+             alt="Nós dois" class="photo" onclick="this.style.transform='scale(1.15)'">
         <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07%20(2).jpeg" 
-             alt="Nós" class="photo" data-fancybox="gallery">
+             alt="Nós dois" class="photo" onclick="this.style.transform='scale(1.15)'">
         <img src="https://raw.githubusercontent.com/heasolxoi198/ateoinfinito/main/imagens/WhatsApp%20Image%202026-02-06%20at%2019.59.07.jpeg" 
-             alt="Nós" class="photo" data-fancybox="gallery">
+             alt="Nós dois" class="photo" onclick="this.style.transform='scale(1.15)'">
       </div>
 
       <!-- Timer -->
@@ -164,10 +299,16 @@
         <div id="timer">Carregando... ❤️</div>
       </div>
 
-      <!-- Carta com efeito de digitação -->
-      <div class="letter" id="letter">
-        <p id="typed-text"></p>
-        <p class="signature" style="display:none;" id="signature">
+      <!-- Carta -->
+      <div class="letter">
+        <p>Minha vida,</p>
+        <p>Desde 17 de julho de 2022 você está comigo, transformando cada dia em algo especial.</p>
+        <p>Hoje celebramos mais de 3 anos de amor verdadeiro, cumplicidade, risadas, viagens, momentos difíceis que nos fortaleceram e uma conexão que só cresce.</p>
+        <p>Você é meu tudo: minha paz, meu sorriso, meu melhor amigo e o amor da minha vida.</p>
+        <p>Quero você não só por mais anos, mas pra sempre. Até o infinito e além!</p>
+        <p>Obrigado por cada segundo ao seu lado. Te amo demais.</p>
+        <br>
+        <p class="signature">
           Pra sempre seu,<br>
           João Ugulino ❤️
         </p>
@@ -179,74 +320,36 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5/dist/fancybox/fancybox.umd.js"></script>
   <script>
-    Fancybox.bind("[data-fancybox]", {});
-
     // Entrar no site
     function enterSite() {
       document.getElementById('intro-screen').classList.add('hidden');
+      
       setTimeout(() => {
         document.getElementById('main-content').classList.add('visible');
-        startTyping();
-        launchHearts();
-        document.getElementById('spotify').src += "&autoplay=1"; // tenta autoplay
+        launchConfetti();
       }, 1200);
     }
 
-    // Música toggle
-    let isPlaying = true;
-    function toggleMusic() {
-      isPlaying = !isPlaying;
-      const control = document.getElementById('musicControl');
-      control.textContent = isPlaying ? '♪' : '♫';
-      // Spotify não permite controle total via JS, mas o autoplay inicial já ajuda
-    }
-
-    // Efeito de digitação
-    const text = `Minha vida,\n\nDesde 17 de julho de 2022 você está comigo, transformando cada dia em algo especial.\n\nHoje celebramos mais de 3 anos de amor verdadeiro, cumplicidade, risadas, viagens, momentos difíceis que nos fortaleceram e uma conexão que só cresce.\n\nVocê é meu tudo: minha paz, meu sorriso, meu melhor amigo e o amor da minha vida.\n\nQuero você não só por mais anos, mas pra sempre. Até o infinito e além!\n\nObrigado por cada segundo ao seu lado. Te amo demais.`;
-    
-    let i = 0;
-    function startTyping() {
-      const element = document.getElementById('typed-text');
-      element.innerHTML = '';
-      i = 0;
-      const type = setInterval(() => {
-        if (i < text.length) {
-          if (text.charAt(i) === '\n') {
-            element.innerHTML += '<br>';
-          } else {
-            element.innerHTML += text.charAt(i);
-          }
-          i++;
-        } else {
-          clearInterval(type);
-          document.getElementById('signature').style.display = 'block';
-        }
-      }, 35);
-    }
-
-    // Corações flutuantes
-    function launchHearts() {
-      for (let i = 0; i < 70; i++) {
+    // Confetti de corações (opcional, mas fica lindo)
+    function launchConfetti() {
+      const count = 80;
+      for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const heart = document.createElement('div');
-          heart.style.position = 'fixed';
-          heart.style.fontSize = '1.8em';
-          heart.style.color = '#ff6b9d';
-          heart.style.left = Math.random() * 100 + 'vw';
-          heart.style.bottom = '-50px';
-          heart.style.opacity = Math.random() * 0.6 + 0.4;
-          heart.style.zIndex = '4';
-          heart.style.animation = `floatHeart ${Math.random() * 8 + 10}s linear forwards`;
+          heart.classList.add('floating-heart');
           heart.innerHTML = '❤️';
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.animationDuration = (Math.random() * 8 + 10) + 's';
+          heart.style.opacity = Math.random() * 0.7 + 0.4;
           document.body.appendChild(heart);
-          setTimeout(() => heart.remove(), 20000);
-        }, i * 40);
+
+          setTimeout(() => heart.remove(), 18000);
+        }, i * 30);
       }
     }
 
-    // Estrelas
+    // Estrelas caindo
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 120; i++) {
       const star = document.createElement('div');
@@ -258,29 +361,41 @@
       star.style.top = Math.random() * -150 + 'px';
       star.style.animationDuration = Math.random() * 12 + 8 + 's';
       star.style.animationDelay = Math.random() * 8 + 's';
+      star.style.opacity = Math.random() * 0.7 + 0.3;
       starsContainer.appendChild(star);
     }
 
-    // Timer
-    const startDate = new Date(2022, 6, 17);
+    // Contador de tempo
+    const startDate = new Date(2022, 6, 17, 0, 0, 0);
+
     function updateTimer() {
       const now = new Date();
       let years = now.getFullYear() - startDate.getFullYear();
       let months = now.getMonth() - startDate.getMonth();
       let days = now.getDate() - startDate.getDate();
 
-      if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
-      if (months < 0) { years--; months += 12; }
+      if (days < 0) {
+        months--;
+        const lastDay = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days += lastDay;
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
 
       const diffMs = now - startDate;
       const hours = Math.floor(diffMs / 3600000) % 24;
       const minutes = Math.floor(diffMs / 60000) % 60;
       const seconds = Math.floor(diffMs / 1000) % 60;
-      const pad = n => n.toString().padStart(2, '0');
+
+      const pad = (n) => n.toString().padStart(2, '0');
 
       document.getElementById('timer').innerHTML = 
-        `${years} anos, ${months} meses, ${days} dias<br>${pad(hours)}h ${pad(minutes)}min ${pad(seconds)}s`;
+        `${years} anos, ${months} meses, ${days} dias<br>
+         ${pad(hours)}h ${pad(minutes)}min ${pad(seconds)}s`;
     }
+
     updateTimer();
     setInterval(updateTimer, 1000);
   </script>
